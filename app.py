@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from pyngrok import ngrok
 from agent import get_response
 
 app = Flask(__name__)
@@ -60,13 +59,4 @@ def chat():
     return jsonify({"reply": reply})
 
 
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-my_ngrok_token=os.environ.get("NGROK_TOKEN")
-
-ngrok.set_auth_token(my_ngrok_token)
-public_url = ngrok.connect(5000)
-print("Your URL:", public_url)
-app.run(debug=False)
+app.run(host="0.0.0.0", port=5000)
